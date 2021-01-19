@@ -10,8 +10,11 @@ inputs:
   heroku_email:
     description: "Email that you use with heroku"
     required: true
-  heroku_app_name:
+  from_heroku_app_name:
     description: "The appname being promoted"
+    required: true
+  to_heroku_app_name:
+    description: "The application the slug is promoted to"
     required: true
 outputs:
   status:

@@ -15,7 +15,8 @@ EOF`
 let heroku = {}
 heroku.api_key = core.getInput('heroku_api_key')
 heroku.email = core.getInput('heroku_email')
-heroku.app_name = core.getInput('heroku_app_name')
+heroku.from_app_name = core.getInput('from_heroku_app_name')
+heroku.to_app_name = core.getInput('to_heroku_app_name')
 
 // Program logic
 try {
@@ -25,11 +26,11 @@ try {
   execSync('heroku login')
   console.log('Successfully logged into heroku')
 
-  execSync(`heroku pipelines:promote -a ${heroku.app_name}`)
+  execSync(`heroku pipelines:promote --app ${heroku.from_app_name} --to=${heroku.to_app_name}`)
 
   core.setOutput(
     'status',
-    'Successfully promoted heroku app ' + heroku.app_name,
+    'Successfully promoted heroku app ' + heroku.from_app_name + ' to ' + heroku.to_app_name,
   )
 } catch (err) {
   core.setFailed(err.toString())
